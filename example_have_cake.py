@@ -95,8 +95,18 @@ class HaveCakeProblem(Problem):
     @lru_cache(maxsize=8192)
     def h_ignore_preconditions(self, node: Node):
         # not implemented
-        count = 0
-        return count
+        kb = PropKB() #
+        kb.tell(decode_state(node.state, self.state_map).pos_sentence())
+        todo = [clause for clause in self.goal if clause not in kb.clauses]
+#        count = 0
+#        for clause in self.goal:
+#            if clause not in kb.clauses:
+#                count+=1
+#        return count #len(todo)
+        print("COUNT=",count)
+        count = len(todo)
+#        count = len(set(self.goal) - set(kb.clauses))
+        return count #len(todo)
 
 
 def have_cake():
